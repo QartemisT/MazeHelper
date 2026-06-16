@@ -215,7 +215,11 @@ local function mhPrint(message)
 end
 
 local function GetNpcId(unit)
-    return tonumber((select(6, strsplit('-', UnitGUID(unit) or ''))));
+	local guid = UnitGUID(unit);
+	if issecretvalue and issecretvalue(guid) then
+		return;
+	end
+    return tonumber((select(6, strsplit('-', guid or ''))));
 end
 
 local function GetPartyChatType()
